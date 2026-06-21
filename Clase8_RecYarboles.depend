@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1781968109 source:/home/kali/Documents/Algoritmos y Estructura de Datos/Practica/Clase8_RecYarboles/libArboles.c
+	"libArboles.h"
+
+1781968215 /home/kali/Documents/Algoritmos y Estructura de Datos/Practica/Clase8_RecYarboles/libArboles.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1781966854 source:/home/kali/Documents/Algoritmos y Estructura de Datos/Practica/Clase8_RecYarboles/main.c
+	"libArboles.h"
+
