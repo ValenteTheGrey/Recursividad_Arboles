@@ -157,6 +157,64 @@ int esCompletoHastaNivel(const tArbol *p, int n)
 
 }
 
+
+tArbol* buscarNodo(tArbol* pa, const void* pd, int (*cmp)(const void*, const void*))
+{
+    tArbol* nodo;
+    while(*pa)
+    {
+        int rc = cmp(pd, (*pa)->info);
+        if(rc > 0)
+            pa = &(*pa)->der;
+        else if(rc < 0)
+            pa = &(*pa)->izq;
+        else if(rc == 0)
+             return nodo = pa;
+    }
+
+    return NULL;         
+}
+
+//Para eliminar un nodo primero se busca en sus subarbol cual es el valor mas cercano y se lo reemplaza con el.
+int eliminarElemArbol(tArbol* pa, void* pd, unsigned tam, int (*cmp)(const void*, const void*))
+{
+     if(!(pa = buscarNodo(pa, pd, cmp)))
+         return 0;
+
+    memcpy(pd, (*pa)->info, MINIMO(tam, (*pa)->tamInfo));
+
+    return eliminarRaizArbol(pa);
+
+}
+
+
+int eliminarRaizArbol(tArbol* pa)
+{
+    tArbol* remp, elim;    //Son tNodoa**
+
+    if(!*pa)
+        return 0;
+
+    free((*pa)->info);
+    if(!(*pa)->izq && !(*pa)->der)
+    {
+        free(*pa);
+        *pa = NULL;
+        return 1;
+    }
+
+    remp = alturaArbolBin(&(*pa)->izq) > alturaArbolBin(&(*pa)->der) ? mayorNodoArbol(&(*pa)->izq) : mayorNodoArbol(&(*pa)->der);
+
+    elim = *remp;
+    (*pa)->info = elim->info;
+    (*pa)->tamInfo = elim->tamInfo;
+    *remp = elim->izq ? elim->izq : elim->der;
+    free(elim);
+
+    return 1;
+    
+}
+
 //Eliminar todas las hojas
 
 //Probar guardar el arbol en un archivo y luego volver a crearlo a partir del mismo
