@@ -100,6 +100,33 @@ unsigned cantNodosArbolBin(tArbol* pa)
     return 1 + cantNodosArbolBin(&(*pa)->izq) + cantNodosArbolBin(&(*pa)->der);
 }
 
+//Altura del Árbol Binario
+unsigned alturaArbolBin(tArbol* pa)
+{
+    if(*pa)
+        return 0;
+
+    unsigned hi = alturaArbolBin(&(*pa)->izq);
+    unsigned hd = alturaArbolBin(&(*pa)->der);
+
+    return (hi > hd ? hi : hd) + 1;
+
+    // o directamente hacer el return con una macro
+    //return MAX(alturaArbolBin(&(*p)->izq), alturaArbolBin(&(*p)->der)) + 1;
+}
+
+//Cantidad de nodos hasta nivel
+unsigned cantNodosHastaNivel(tArbol* pa, unsigned n)
+{
+    if(!*pa)
+        return 0;
+
+    if(n == 0)
+        return 1;
+    
+    return (cantNodosHastaNivel(&(*pa)->izq, n - 1) + cantNodosHastaNivel(&(*pa)->izq, n - 1) + 1);
+}
+
 //Eliminar todas las hojas
 
 //Probar guardar el arbol en un archivo y luego volver a crearlo a partir del mismo
