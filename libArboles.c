@@ -203,7 +203,7 @@ int eliminarRaizArbol(tArbol* pa)
         return 1;
     }
 
-    remp = alturaArbolBin(&(*pa)->izq) > alturaArbolBin(&(*pa)->der) ? mayorNodoArbol(&(*pa)->izq) : mayorNodoArbol(&(*pa)->der);
+    remp = alturaArbolBin(&(*pa)->izq) > alturaArbolBin(&(*pa)->der) ? mayorNodoArbol(&(*pa)->izq) : menorNodoArbol(&(*pa)->der);
 
     elim = *remp;
     (*pa)->info = elim->info;
