@@ -215,6 +215,22 @@ int eliminarRaizArbol(tArbol* pa)
     
 }
 
+tArbol* mayorNodoArbol(tArbol* pa)
+{
+    while((*pa)->der)
+        pa = &(*pa)->der;
+
+    return pa;
+}
+
+tArbol* menorNodoArbol(tArbol* pa)
+{
+    while((*pa)->izq)
+        pa = &(*pa)->izq;
+
+    return pa;
+}
+
 //Eliminar todas las hojas
 
 //Probar guardar el arbol en un archivo y luego volver a crearlo a partir del mismo
