@@ -127,6 +127,36 @@ unsigned cantNodosHastaNivel(tArbol* pa, unsigned n)
     return (cantNodosHastaNivel(&(*pa)->izq, n - 1) + cantNodosHastaNivel(&(*pa)->izq, n - 1) + 1);
 }
 
+//Se recorre 2 veces, uno para obtener la altura y otra para ver si cada nodo tiene dos hijos
+unsigned esBalanceado(const tArbol* pa)
+{
+    unsigned h = alturaArbolBin(pa);
+
+    return cantNodosHastaNivel(pa, h - 2) == pow(2, h - 1) - 1;
+
+    //recordar que cantidad de nodos en Arbol Completo: 2^h - 1.
+    //Balanceado: Completo hasta su altura h - 1.
+}
+
+unsigned esBalanceado2(const tArbol *p)
+{
+    return esCompletoHastaNivel(p, alturaArbolBin(...));
+
+}
+
+
+int esCompletoHastaNivel(const tArbol *p, int n)
+{
+    if(!*p)
+        return 0;
+
+    if(n == 0)
+        return 1;
+
+    return esCompletoHastaNivel(&(*p)->izq, n - 1) && esCompletoHastaNivel(&(*p)->der, n - 1);
+
+}
+
 //Eliminar todas las hojas
 
 //Probar guardar el arbol en un archivo y luego volver a crearlo a partir del mismo
