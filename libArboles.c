@@ -41,14 +41,14 @@ void impInt(void* numImp, void* argInutil)
     printf("%d, ", num);
 }
 
-void iniciar_arbol(t_arbol* pa)
+void iniciar_arbol(tArbol* pa)
 {
     *pa = NULL;
 }
 
-int insertar_arbol(t_arbol* pa,void* pd, size_t tam, int (*cmp)(const void*, const void*))
+int insertar_arbol(tArbol* pa,void* pd, size_t tam, int (*cmp)(const void*, const void*))
 {
-    t_nodoa * nue;
+    tNodoa * nue;
     while(*pa)
     {
         int rc = cmp(pd, (*pa)->info);
@@ -59,7 +59,7 @@ int insertar_arbol(t_arbol* pa,void* pd, size_t tam, int (*cmp)(const void*, con
         else
             return DUPLICADO;
     }
-    if((nue=(t_nodoa *) malloc(sizeof(t_nodoa))) == NULL ||
+    if((nue=(tNodoa *) malloc(sizeof(tNodoa))) == NULL ||
        (nue->info = malloc(tam)) == NULL)
     {
         free(nue);
@@ -74,7 +74,7 @@ int insertar_arbol(t_arbol* pa,void* pd, size_t tam, int (*cmp)(const void*, con
 
 
 //Recorrer en orden -> Izq - Raiz - Der
-void rec_en_orden(t_arbol *pa, void (*accion)(void *, void*), void * params)
+void rec_en_orden(tArbol *pa, void (*accion)(void* info, void* params), void* params)
 {
     if(!*pa)
         return;
