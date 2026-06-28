@@ -92,6 +92,13 @@ void rec_en_orden(tArbol *pa, void (*accion)(void* info, void* params), void* pa
 //Vaciar arbol
 
 //Contar cant nodos de un arbol
+unsigned cantNodosArbolBin(tArbol* pa)
+{
+    if(!*pa)
+        return 0;
+
+    return 1 + cantNodosArbolBin(&(*pa)->izq) + cantNodosArbolBin(&(*pa)->der);
+}
 
 //Eliminar todas las hojas
 
