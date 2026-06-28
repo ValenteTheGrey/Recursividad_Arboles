@@ -41,12 +41,12 @@ void impInt(void* numImp, void* argInutil)
     printf("%d, ", num);
 }
 
-void iniciar_arbol(tArbol* pa)
+void iniciarArbol(tArbol* pa)
 {
     *pa = NULL;
 }
 
-int insertar_arbol(tArbol* pa,void* pd, size_t tam, int (*cmp)(const void*, const void*))
+int insertarArbol(tArbol* pa,void* pd, size_t tam, int (*cmp)(const void*, const void*))
 {
     tNodoa * nue;
     while(*pa)
@@ -74,7 +74,7 @@ int insertar_arbol(tArbol* pa,void* pd, size_t tam, int (*cmp)(const void*, cons
 
 
 //Recorrer en orden -> Izq - Raiz - Der
-void rec_en_orden(tArbol *pa, void (*accion)(void* info, void* params), void* params)
+void recorrerEnOrdArbol(tArbol *pa, void (*accion)(void* info, void* params), void* params)
 {
     if(!*pa)
         return;
@@ -103,7 +103,7 @@ unsigned cantNodosArbolBin(tArbol* pa)
 //Altura del Árbol Binario
 unsigned alturaArbolBin(tArbol* pa)
 {
-    if(*pa)
+    if(!*pa)
         return 0;
 
     unsigned hi = alturaArbolBin(&(*pa)->izq);
