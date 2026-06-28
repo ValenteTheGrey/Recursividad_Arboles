@@ -124,7 +124,7 @@ unsigned cantNodosHastaNivel(tArbol* pa, unsigned n)
     if(n == 0)
         return 1;
     
-    return (cantNodosHastaNivel(&(*pa)->izq, n - 1) + cantNodosHastaNivel(&(*pa)->izq, n - 1) + 1);
+    return (cantNodosHastaNivel(&(*pa)->izq, n - 1) + cantNodosHastaNivel(&(*pa)->der, n - 1) + 1);
 }
 
 //Se recorre 2 veces, uno para obtener la altura y otra para ver si cada nodo tiene dos hijos
