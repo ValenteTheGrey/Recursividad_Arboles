@@ -234,3 +234,59 @@ tArbol* menorNodoArbol(tArbol* pa)
 //Eliminar todas las hojas
 
 //Probar guardar el arbol en un archivo y luego volver a crearlo a partir del mismo
+
+int cargarDesdeDatosOrd(tArbol* pa, void* ds, unsigned (*leer)(void**,void*,unsigned,void*), int li, int ls, void* params)
+{
+    int m = (li + ls) / 2;
+    int r;
+
+    if(li > ls)
+        return TODO_OK;
+
+    *pa = (tNodoa*)malloc(sizeof(tNodoa));
+
+    if(!*p || !((*pa)->tamInfo = leer(&(*pa)->info, ds, m, params)))
+    {
+        free(*pa);
+        return SIN_MEM;
+    }
+
+    (*pa)->izq = (*pa)->der = NULL;
+
+    if((r = cargarDesdeDatosOrd(&(*pa)->izq, ds, leer, li, m - 1, params)) != TODO_OK)
+        return r;
+
+    return cargarDesdeDatosOrd(&(*pa)->der, ds, leer, li, m - 1, params);
+}
+
+
+int cargarArchivoBinOrdenadoArbolBin(tArbol* pa, const char* path, unsigned tamInfo)
+{
+    int cantReg, r;
+    FILE * pf;
+    if(*pa)
+        return SIN_INICIALIZAR;
+
+    if(!(pf = fopen(path, "rb")))
+        return ERROR_ARCH;
+
+    fseek(pf, 0L, SEEK_END);
+    cantReg = ftell(pf) / tamInfo;
+
+    r = cargarDesdeDatosOrd(pa, pf, leerDesdeArchivoBin, 0, cantReg - 1, &tamInfo);
+
+    fclose(pf);
+    return r;
+    
+}
+
+unsigned leerDesdeArchivoBin(void** d, void* pf, unsigned pos, void* params)
+{
+    unsigned tam = *((int*)params);
+    *d = malloc(tam);
+    if(!*d)
+        return 0;
+
+    fseek((FILE*)pf, pos*tam, SEEK_SET);
+    return fread(*d, tam, 1, (FILE*)pf);
+}
