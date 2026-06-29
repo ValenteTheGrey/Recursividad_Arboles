@@ -235,6 +235,28 @@ tArbol* menorNodoArbol(tArbol* pa)
 
 //Probar guardar el arbol en un archivo y luego volver a crearlo a partir del mismo
 
+//Antes de cargar el Árbol abrimos el archivo, verificamos cantidad de registros.
+//Ésta es la función principal que llamamos desde main.
+int cargarArchivoBinOrdenadoArbolBin(tArbol* pa, const char* path, unsigned tamInfo)
+{
+    int cantReg, r;
+    FILE * pf;
+    if(*pa)
+        return SIN_INICIALIZAR;
+
+    if(!(pf = fopen(path, "rb")))
+        return ERROR_ARCH;
+
+    fseek(pf, 0L, SEEK_END);
+    cantReg = ftell(pf) / tamInfo;
+
+    r = cargarDesdeDatosOrd(pa, pf, leerDesdeArchivoBin, 0, cantReg - 1, &tamInfo);
+
+    fclose(pf);
+    return r;
+    
+}
+
 int cargarDesdeDatosOrd(tArbol* pa, void* ds, unsigned (*leer)(void**,void*,unsigned,void*), int li, int ls, void* params)
 {
     int m = (li + ls) / 2;
@@ -260,25 +282,7 @@ int cargarDesdeDatosOrd(tArbol* pa, void* ds, unsigned (*leer)(void**,void*,unsi
 }
 
 
-int cargarArchivoBinOrdenadoArbolBin(tArbol* pa, const char* path, unsigned tamInfo)
-{
-    int cantReg, r;
-    FILE * pf;
-    if(*pa)
-        return SIN_INICIALIZAR;
 
-    if(!(pf = fopen(path, "rb")))
-        return ERROR_ARCH;
-
-    fseek(pf, 0L, SEEK_END);
-    cantReg = ftell(pf) / tamInfo;
-
-    r = cargarDesdeDatosOrd(pa, pf, leerDesdeArchivoBin, 0, cantReg - 1, &tamInfo);
-
-    fclose(pf);
-    return r;
-    
-}
 
 //Lee un unico registro y lo guarda en un puntero, ejemplo:
 //void* dato
