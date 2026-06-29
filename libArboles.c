@@ -266,11 +266,14 @@ int cargarDesdeDatosOrd(tArbol* pa, void* ds, unsigned (*leer)(void**,void*,unsi
         return TODO_OK;
 
     *pa = (tNodoa*)malloc(sizeof(tNodoa));
-
-    if(!*pa || !((*pa)->tamInfo = leer(&(*pa)->info, ds, m, params)))
-    {
-        free(*pa);
+    if(!*pa)
         return SIN_MEM;
+
+    (*pa)->tamInfo = *(unsigned*)params;
+
+    if(!(leer(&(*pa)->info, pf, m, params)){
+        free(*pa);
+        return ERROR_ARCH;
     }
 
     (*pa)->izq = (*pa)->der = NULL;
