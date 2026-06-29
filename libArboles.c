@@ -297,3 +297,41 @@ unsigned leerDesdeArchivoBin(void** d, void* pf, unsigned pos, void* params)
     fseek((FILE*)pf, pos*tam, SEEK_SET);
     return fread(*d, tam, 1, (FILE*)pf);
 }
+
+/*Forma facil no generica
+int cargarDesdeDatosOrd(tArbol* pa, FILE* pf, int li, int ls, unsigned tamInfo)
+{
+    int m = (li + ls) / 2;
+
+    if(li > ls)
+        return TODO_OK;
+
+    *pa = malloc(sizeof(tNodoa));
+    if(!*pa)
+        return SIN_MEM;
+
+    (*pa)->info = malloc(tamInfo);
+    if(!(*pa)->info)
+    {
+        free(*pa);
+        return SIN_MEM;
+    }
+
+    fseek(pf, m * tamInfo, SEEK_SET);
+
+    if(fread((*pa)->info, tamInfo, 1, pf) != 1)
+    {
+        free((*pa)->info);
+        free(*pa);
+        return ERROR_ARCH;
+    }
+
+    (*pa)->tamInfo = tamInfo;
+    (*pa)->izq = (*pa)->der = NULL;
+
+    cargarDesdeDatosOrd(&(*pa)->izq, pf, li, m - 1, tamInfo);
+    cargarDesdeDatosOrd(&(*pa)->der, pf, m + 1, ls, tamInfo);
+
+    return TODO_OK;
+}
+*/
