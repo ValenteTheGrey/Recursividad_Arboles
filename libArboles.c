@@ -206,7 +206,7 @@ int eliminarRaizArbol(tArbol* pa)
     remp = alturaArbolBin(&(*pa)->izq) > alturaArbolBin(&(*pa)->der) ? mayorNodoArbol(&(*pa)->izq) : menorNodoArbol(&(*pa)->der);
 
     elim = *remp;
-    (*pa)->info = elim->info;
+    //(*pa)->info = elim->info; La info se copio en eliminarElemArbol y acá ya se liberó previamente
     (*pa)->tamInfo = elim->tamInfo;
     *remp = elim->izq ? elim->izq : elim->der;
     free(elim);
