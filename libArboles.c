@@ -245,7 +245,7 @@ int cargarDesdeDatosOrd(tArbol* pa, void* ds, unsigned (*leer)(void**,void*,unsi
 
     *pa = (tNodoa*)malloc(sizeof(tNodoa));
 
-    if(!*p || !((*pa)->tamInfo = leer(&(*pa)->info, ds, m, params)))
+    if(!*pa || !((*pa)->tamInfo = leer(&(*pa)->info, ds, m, params)))
     {
         free(*pa);
         return SIN_MEM;
@@ -256,7 +256,7 @@ int cargarDesdeDatosOrd(tArbol* pa, void* ds, unsigned (*leer)(void**,void*,unsi
     if((r = cargarDesdeDatosOrd(&(*pa)->izq, ds, leer, li, m - 1, params)) != TODO_OK)
         return r;
 
-    return cargarDesdeDatosOrd(&(*pa)->der, ds, leer, li, m - 1, params);
+    return cargarDesdeDatosOrd(&(*pa)->der, ds, leer, li, m + 1, params);
 }
 
 
