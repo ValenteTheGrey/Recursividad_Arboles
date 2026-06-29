@@ -280,6 +280,9 @@ int cargarArchivoBinOrdenadoArbolBin(tArbol* pa, const char* path, unsigned tamI
     
 }
 
+//Lee un unico registro y lo guarda en un puntero, ejemplo:
+//void* dato
+//leerDesdeArchivo(&dato, pf, 2, &tam)
 unsigned leerDesdeArchivoBin(void** d, void* pf, unsigned pos, void* params)
 {
     unsigned tam = *((int*)params);
