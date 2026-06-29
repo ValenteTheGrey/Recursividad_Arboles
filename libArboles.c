@@ -46,7 +46,7 @@ void iniciarArbol(tArbol* pa)
     *pa = NULL;
 }
 
-int insertarArbol(tArbol* pa,void* pd, size_t tam, int (*cmp)(const void*, const void*))
+int insertarEnArbol(tArbol* pa,void* pd, size_t tam, int (*cmp)(const void*, const void*))
 {
     tNodoa * nue;
     while(*pa)
